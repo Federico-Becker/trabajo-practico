@@ -9,6 +9,19 @@
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+  <%
+    const filtrosActuales = filtros || {};
+    const hayFiltros = Boolean(
+      String(filtrosActuales.q || '').trim() ||
+      filtrosActuales.marca ||
+      filtrosActuales.categoria ||
+      filtrosActuales.precio_min ||
+      filtrosActuales.precio_max ||
+      filtrosActuales.anio_min ||
+      filtrosActuales.anio_max ||
+      (filtrosActuales.orden && filtrosActuales.orden !== 'mas_recientes')
+    );
+  %>
   <%- include('../partials/navbar') -%>
 
   <main class="container">
