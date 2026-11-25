@@ -1,4 +1,4 @@
-# Concesionaria EJS
+# Beckars Concecionaria
 
 Aplicación web de concesionaria con catálogo público, consultas de clientes y panel administrativo para gestión de vehículos, marcas, categorías, consultas y ventas.
 

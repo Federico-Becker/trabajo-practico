@@ -1334,6 +1334,14 @@ body.lightbox-abierto {
 }
 
 @media (max-width: 900px) {
+  .detail-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-info {
+    padding: 1.25rem;
+  }
+
   .hero-preview {
     padding: 2.2rem;
   }
@@ -1344,6 +1352,21 @@ body.lightbox-abierto {
 }
 
 @media (max-width: 560px) {
+  .brand {
+    gap: 0.5rem;
+  }
+
+  .brand-mark {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+
+  .brand-text {
+    font-size: 0.82rem;
+    line-height: 1.1;
+  }
+
   .hero-preview {
     min-height: auto;
   }
@@ -1357,7 +1380,59 @@ body.lightbox-abierto {
     align-items: flex-start;
   }
 
+  .detail-page {
+    padding-top: 1rem;
+  }
+
+  .gallery-stage img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .gallery-count {
+    top: 0.6rem;
+    right: 0.6rem;
+  }
+
+  .gallery-zoom {
+    right: 0.6rem;
+    bottom: 0.6rem;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.82rem;
+  }
+
+  .gallery-tabs {
+    gap: 0.4rem;
+  }
+
+  .gallery-tab {
+    flex: 1 1 auto;
+    justify-content: center;
+    padding: 0.5rem 0.6rem;
+    font-size: 0.85rem;
+  }
+
   .gallery-thumbs.activo {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .detail-info {
+    padding: 1.1rem;
+    border-radius: 18px;
+  }
+
+  .detail-info h1 {
+    font-size: 1.7rem;
+  }
+
+  .detail-price {
+    font-size: 1.5rem;
+  }
+
+  .lightbox {
+    padding: 1rem;
+  }
+
+  .lightbox img {
+    max-height: 75vh;
   }
 }

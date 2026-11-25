@@ -1,7 +1,7 @@
 {
   "name": "concesionaria-ejs",
   "version": "1.0.0",
-  "description": "Concesionaria con catálogo público y panel administrativo usando Express, EJS y SQLite",
+  "description": "Beckars Concecionaria con catálogo público y panel administrativo usando Express, EJS y SQLite",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
