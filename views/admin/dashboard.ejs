@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= titulo %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <%- include('../partials/navbar') -%>
+
+  <main class="container admin-page">
+    <div class="page-heading">
+      <div>
+        <p class="eyebrow">Administración</p>
+        <h1>Panel general</h1>
+        <p class="muted">Resumen de vehículos, consultas y ventas.</p>
+      </div>
+      <a class="btn btn-primary" href="/admin/vehiculos/nuevo">+ Nuevo vehículo</a>
+    </div>
+
+    <section class="stats-grid">
+      <article class="stat-card"><span>Total vehículos</span><strong><%= conteo.total %></strong></article>
+      <article class="stat-card stat-success"><span>Disponibles</span><strong><%= conteo.disponibles %></strong></article>
+      <article class="stat-card stat-warning"><span>Reservados</span><strong><%= conteo.reservados %></strong></article>
+      <article class="stat-card stat-muted"><span>Vendidos</span><strong><%= conteo.vendidos %></strong></article>
+      <article class="stat-card stat-info"><span>Consultas nuevas</span><strong><%= consultasNuevas %></strong></article>
+      <article class="stat-card"><span>Ventas registradas</span><strong><%= ventas.total %></strong><small><%= formatearMoneda(ventas.monto) %></small></article>
+    </section>
+
+    <div class="admin-columns">
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>Últimas consultas</h2>
+          <a href="/admin/consultas">Ver todas</a>
+        </div>
+        <% if (ultimasConsultas.length) { %>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Cliente</th><th>Vehículo</th><th>Estado</th><th>Fecha</th></tr>
+              </thead>
+              <tbody>
+                <% ultimasConsultas.forEach(function (consulta) { %>
+                  <tr>
+                    <td><strong><%= consulta.nombre %></strong><br><small><%= consulta.email %></small></td>
+                    <td><%= consulta.marca %> <%= consulta.modelo %></td>
+                    <td><span class="badge badge-<%= consulta.estado %>"><%= consulta.estado %></span></td>
+                    <td><%= formatearFecha(consulta.created_at) %></td>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        <% } else { %>
+          <p class="muted">Todavía no hay consultas.</p>
+        <% } %>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>Últimos vehículos</h2>
+          <a href="/admin/vehiculos">Ver todos</a>
+        </div>
+        <% if (ultimosVehiculos.length) { %>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Vehículo</th><th>Precio</th><th>Estado</th></tr>
+              </thead>
+              <tbody>
+                <% ultimosVehiculos.forEach(function (vehiculo) { %>
+                  <tr>
+                    <td><strong><%= vehiculo.marca %> <%= vehiculo.modelo %></strong><br><small><%= vehiculo.anio %></small></td>
+                    <td><%= formatearMoneda(vehiculo.precio) %></td>
+                    <td><span class="badge badge-<%= vehiculo.estado %>"><%= vehiculo.estado %></span></td>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        <% } else { %>
+          <p class="muted">Todavía no hay vehículos cargados.</p>
+        <% } %>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= titulo %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <%- include('../../partials/navbar') -%>
+
+  <main class="container admin-page">
+    <div class="page-heading">
+      <div>
+        <p class="eyebrow">Administración</p>
+        <h1>Vehículos</h1>
+        <p class="muted">Gestioná el stock, los estados y las imágenes de cada vehículo.</p>
+      </div>
+      <a class="btn btn-primary" href="/admin/vehiculos/nuevo">+ Nuevo vehículo</a>
+    </div>
+
+    <section class="panel">
+      <form action="/admin/vehiculos" method="GET" class="inline-filters">
+        <label>
+          <span>Estado</span>
+          <select name="estado">
+            <option value="">Todos</option>
+            <% estados.forEach(function (estado) { %>
+              <option value="<%= estado %>" <%= estadoFiltro === estado ? 'selected' : '' %>><%= estado %></option>
+            <% }); %>
+          </select>
+        </label>
+        <button type="submit" class="btn btn-primary btn-small">Filtrar</button>
+        <a class="btn btn-ghost btn-small" href="/admin/vehiculos">Limpiar</a>
+      </form>
+    </section>
+
+    <section class="panel">
+      <% if (vehiculos.length) { %>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Vehículo</th>
+                <th>Precio</th>
+                <th>Imágenes</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% vehiculos.forEach(function (vehiculo) { %>
+                <tr>
+                  <td>
+                    <strong><%= vehiculo.marca %> <%= vehiculo.modelo %></strong>
+                    <br><small><%= vehiculo.anio %> · <%= vehiculo.kilometraje.toLocaleString('es-AR') %> km</small>
+                  </td>
+                  <td><%= formatearMoneda(vehiculo.precio) %></td>
+                  <td><%= vehiculo.imagenes %></td>
+                  <td>
+                    <form action="/admin/vehiculos/<%= vehiculo.id %>/estado" method="POST" class="inline-form">
+                      <select name="estado" class="select-small" onchange="this.form.submit()">
+                        <% estados.forEach(function (estado) { %>
+                          <option value="<%= estado %>" <%= vehiculo.estado === estado ? 'selected' : '' %>><%= estado %></option>
+                        <% }); %>
+                      </select>
+                    </form>
+                  </td>
+                  <td>
+                    <div class="table-actions">
+                      <a class="btn btn-ghost btn-small" href="/admin/vehiculos/<%= vehiculo.id %>/editar">Editar</a>
+                      <form action="/admin/vehiculos/<%= vehiculo.id %>/eliminar" method="POST" class="inline-form" onsubmit="return confirm('¿Eliminar este vehículo?');">
+                        <button type="submit" class="btn btn-danger btn-small">Eliminar</button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      <% } else { %>
+        <div class="empty-state">
+          <h2>No hay vehículos para mostrar</h2>
+          <a class="btn btn-primary" href="/admin/vehiculos/nuevo">Cargar el primer vehículo</a>
+        </div>
+      <% } %>
+    </section>
+  </main>
+</body>
+</html>
