@@ -1436,3 +1436,142 @@ body.lightbox-abierto {
     max-height: 75vh;
   }
 }
+
+.site-header .btn-ghost,
+.hero-actions .btn-ghost {
+  background: transparent;
+}
+
+.site-header .btn-ghost:hover,
+.hero-actions .btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.theme-control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  color: #cbd9e6;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.theme-control select {
+  width: auto;
+  min-width: 96px;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #eaf4ff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: none;
+}
+
+html[data-theme="dark"] {
+  --bg: #0a111c;
+  --surface: #121e2e;
+  --text: #e6eef7;
+  --muted: #9fb0c2;
+  --primary: #5fd0ff;
+  --primary-dark: #8ee0ff;
+  --border: #26384c;
+  --line: #26384c;
+  --paper: #121e2e;
+  --navy: #07111c;
+  --navy-soft: #0f2b43;
+  --shadow: 0 16px 40px rgba(0, 0, 0, 0.38);
+  color-scheme: dark;
+}
+
+html[data-theme="dark"] body {
+  background: radial-gradient(circle at 8% 0%, rgba(95, 208, 255, 0.09), transparent 34%),
+              radial-gradient(circle at 92% 8%, rgba(240, 161, 59, 0.07), transparent 30%),
+              var(--bg);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .panel,
+html[data-theme="dark"] .vehicle-card,
+html[data-theme="dark"] .detail-info,
+html[data-theme="dark"] .auth-card,
+html[data-theme="dark"] .result-count,
+html[data-theme="dark"] .gallery-tab,
+html[data-theme="dark"] .gallery-zoom {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] .spec-grid > div,
+html[data-theme="dark"] .auth-hint {
+  background: #0f1b2a;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+html[data-theme="dark"] label > span,
+html[data-theme="dark"] .vehicle-price {
+  color: var(--text);
+}
+
+html[data-theme="dark"] .vehicle-price {
+  color: #8fd3ff;
+}
+
+html[data-theme="dark"] .tag {
+  background: #173047;
+  color: #bfe4ff;
+}
+
+html[data-theme="dark"] .tag-featured {
+  background: linear-gradient(135deg, #ffd985, #ef9b2e);
+  color: #2a1a00;
+}
+
+html[data-theme="dark"] .badge {
+  background: #1d2b3a;
+  color: #dbe7f2;
+}
+
+html[data-theme="dark"] .badge-disponible,
+html[data-theme="dark"] .badge-cerrada {
+  background: #123b30;
+  color: #8ff0c0;
+}
+
+html[data-theme="dark"] .badge-reservado,
+html[data-theme="dark"] .badge-en_gestion {
+  background: #403314;
+  color: #ffd78a;
+}
+
+html[data-theme="dark"] .badge-vendido,
+html[data-theme="dark"] .badge-nueva {
+  background: #163655;
+  color: #9fd0ff;
+}
+
+html[data-theme="dark"] .detail-highlights span {
+  background: #3a2a12;
+  color: #ffd78a;
+}
+
+html[data-theme="dark"] .alert-success {
+  background: #123b30;
+  border-color: #1f6b50;
+  color: #8ff0c0;
+}
+
+html[data-theme="dark"] .alert-error,
+html[data-theme="dark"] .btn-danger {
+  background: #3a1a1f;
+  border-color: #7f2d36;
+  color: #ff9aa6;
+}

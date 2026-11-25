@@ -21,6 +21,13 @@
       <% } %>
     </div>
     <div class="nav-actions">
+      <label class="theme-control">
+        <span>Tema</span>
+        <select data-theme-select aria-label="Tema">
+          <option value="light">Blanco</option>
+          <option value="dark">Negro</option>
+        </select>
+      </label>
       <% if (usuario) { %>
         <span class="nav-user"><%= usuario.nombre %></span>
         <form action="/logout" method="POST" class="inline-form">
