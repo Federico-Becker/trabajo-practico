@@ -1,0 +1,68 @@
+<main class="container admin-page">
+    <div class="page-heading">
+      <div>
+        <p class="eyebrow">Administración</p>
+        <h1>Consultas</h1>
+        <p class="muted">Revisá los mensajes recibidos y actualizá su estado.</p>
+      </div>
+    </div>
+
+    <section class="panel">
+      <form action="/admin/consultas" method="GET" class="inline-filters">
+        <label>
+          <span>Estado</span>
+          <select name="estado">
+            <option value="">Todas</option>
+            <% estados.forEach(function (estado) { %>
+              <option value="<%= estado %>" <%= estadoFiltro === estado ? 'selected' : '' %>><%= estado %></option>
+            <% }); %>
+          </select>
+        </label>
+        <button type="submit" class="btn btn-primary btn-small">Filtrar</button>
+        <a class="btn btn-ghost btn-small" href="/admin/consultas">Limpiar</a>
+      </form>
+    </section>
+
+    <section class="panel">
+      <% if (consultas.length) { %>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th>Vehículo</th>
+                <th>Mensaje</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% consultas.forEach(function (consulta) { %>
+                <tr>
+                  <td>
+                    <strong><%= consulta.nombre %></strong>
+                    <br><small><%= consulta.email %></small>
+                    <% if (consulta.telefono) { %><br><small><%= consulta.telefono %></small><% } %>
+                  </td>
+                  <td><%= consulta.marca %> <%= consulta.modelo %></td>
+                  <td class="mensaje-cell"><%= consulta.mensaje %></td>
+                  <td><%= formatearFecha(consulta.created_at) %></td>
+                  <td>
+                    <form action="/admin/consultas/<%= consulta.id %>/estado" method="POST" class="inline-form">
+                      <select name="estado" class="select-small" onchange="this.form.submit()">
+                        <% estados.forEach(function (estado) { %>
+                          <option value="<%= estado %>" <%= consulta.estado === estado ? 'selected' : '' %>><%= estado %></option>
+                        <% }); %>
+                      </select>
+                    </form>
+                  </td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      <% } else { %>
+        <p class="muted">No hay consultas con ese filtro.</p>
+      <% } %>
+    </section>
+  </main>

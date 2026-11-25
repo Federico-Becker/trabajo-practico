@@ -1,0 +1,133 @@
+<%
+  const filtrosActuales = filtros || {};
+  const hayFiltros = Boolean(
+    String(filtrosActuales.q || '').trim() ||
+    filtrosActuales.marca ||
+    filtrosActuales.categoria ||
+    filtrosActuales.precio_min ||
+    filtrosActuales.precio_max ||
+    filtrosActuales.anio_min ||
+    filtrosActuales.anio_max ||
+    (filtrosActuales.orden && filtrosActuales.orden !== 'mas_recientes')
+  );
+%>
+<main class="container">
+    <section class="hero hero-preview">
+      <div class="hero-copy">
+        <p class="eyebrow">Vehículos seleccionados</p>
+        <h1>Encontrá tu próximo auto</h1>
+        <p class="hero-text">Explora nuestro catálogo, filtrá por marca, categoría, precio o año y consultanos sin compromiso.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#catalogo">Explorar catálogo</a>
+          <a class="btn btn-ghost" href="/login">Acceso administrador</a>
+        </div>
+      </div>
+      <div class="hero-badge">
+        <strong><%= vehiculos.length %></strong>
+        <span>vehículos disponibles</span>
+      </div>
+    </section>
+
+    <details class="panel filters"<%= hayFiltros ? ' open' : '' %>>
+      <summary class="filters-summary">
+        <span class="filters-title">Filtrar búsqueda</span>
+        <% if (hayFiltros) { %>
+          <span class="filters-active">Filtros activos</span>
+        <% } %>
+        <span class="filters-chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <form action="/" method="GET" class="filter-grid">
+        <label>
+          <span>Buscar</span>
+          <input type="text" name="q" placeholder="Modelo, marca o categoría" value="<%= filtros && filtros.q ? filtros.q : '' %>">
+        </label>
+        <label>
+          <span>Marca</span>
+          <select name="marca">
+            <option value="">Todas</option>
+            <% marcas.forEach(function (marca) { %>
+              <option value="<%= marca.id %>" <%= filtros && String(filtros.marca) === String(marca.id) ? 'selected' : '' %>><%= marca.nombre %></option>
+            <% }); %>
+          </select>
+        </label>
+        <label>
+          <span>Categoría</span>
+          <select name="categoria">
+            <option value="">Todas</option>
+            <% categorias.forEach(function (categoria) { %>
+              <option value="<%= categoria.id %>" <%= filtros && String(filtros.categoria) === String(categoria.id) ? 'selected' : '' %>><%= categoria.nombre %></option>
+            <% }); %>
+          </select>
+        </label>
+        <label>
+          <span>Precio mínimo</span>
+          <input type="number" name="precio_min" min="0" step="1000" placeholder="0" value="<%= filtros && filtros.precio_min ? filtros.precio_min : '' %>">
+        </label>
+        <label>
+          <span>Precio máximo</span>
+          <input type="number" name="precio_max" min="0" step="1000" placeholder="Sin límite" value="<%= filtros && filtros.precio_max ? filtros.precio_max : '' %>">
+        </label>
+        <label>
+          <span>Año desde</span>
+          <input type="number" name="anio_min" min="1900" max="2100" placeholder="1900" value="<%= filtros && filtros.anio_min ? filtros.anio_min : '' %>">
+        </label>
+        <label>
+          <span>Año hasta</span>
+          <input type="number" name="anio_max" min="1900" max="2100" placeholder="2100" value="<%= filtros && filtros.anio_max ? filtros.anio_max : '' %>">
+        </label>
+        <label>
+          <span>Ordenar por</span>
+          <select name="orden">
+            <option value="mas_recientes" <%= !filtros || !filtros.orden || filtros.orden === 'mas_recientes' ? 'selected' : '' %>>Más recientes</option>
+            <option value="precio_asc" <%= filtros && filtros.orden === 'precio_asc' ? 'selected' : '' %>>Menor precio</option>
+            <option value="precio_desc" <%= filtros && filtros.orden === 'precio_desc' ? 'selected' : '' %>>Mayor precio</option>
+            <option value="anio_desc" <%= filtros && filtros.orden === 'anio_desc' ? 'selected' : '' %>>Año más nuevo</option>
+            <option value="anio_asc" <%= filtros && filtros.orden === 'anio_asc' ? 'selected' : '' %>>Año más viejo</option>
+          </select>
+        </label>
+        <div class="filter-actions">
+          <button type="submit" class="btn btn-primary">Aplicar filtros</button>
+          <a class="btn btn-ghost" href="/">Limpiar</a>
+        </div>
+      </form>
+    </details>
+
+    <section class="catalogo" id="catalogo">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Stock actual</p>
+          <h2>Vehículos disponibles</h2>
+        </div>
+        <span class="result-count"><%= vehiculos.length %> resultados</span>
+      </div>
+      <% if (vehiculos.length) { %>
+        <div class="card-grid">
+          <% vehiculos.forEach(function (vehiculo) { %>
+            <article class="vehicle-card">
+              <% if (vehiculo.imagen_principal) { %>
+                <img class="vehicle-card-image" src="<%= vehiculo.imagen_principal %>" alt="<%= vehiculo.marca %> <%= vehiculo.modelo %>">
+              <% } else { %>
+                <div class="vehicle-card-image vehicle-card-placeholder"><span>Sin imagen</span></div>
+              <% } %>
+              <div class="vehicle-card-body">
+                <div class="card-topline">
+                  <span class="tag"><%= vehiculo.marca %> · <%= vehiculo.categoria %></span>
+                  <% if (vehiculo.destacado) { %><span class="tag tag-featured">Destacado</span><% } %>
+                </div>
+                <h3><%= vehiculo.modelo %></h3>
+                <p class="vehicle-meta"><%= vehiculo.anio %> · <%= vehiculo.kilometraje.toLocaleString('es-AR') %> km · <%= vehiculo.combustible %></p>
+                <p class="vehicle-price"><%= formatearMoneda(vehiculo.precio) %></p>
+                <a class="btn btn-primary btn-block" href="/vehiculos/<%= vehiculo.id %>">Ver detalles</a>
+              </div>
+            </article>
+          <% }); %>
+        </div>
+      <% } else { %>
+        <div class="empty-state">
+          <h2>No encontramos vehículos con esos filtros</h2>
+          <p>Probá con otra búsqueda o quitá algunos filtros.</p>
+          <a class="btn btn-primary" href="/">Ver todo el catálogo</a>
+        </div>
+      <% } %>
+    </section>
+  </main>

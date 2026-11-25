@@ -1,0 +1,27 @@
+<main class="container auth-page">
+    <section class="auth-card">
+      <p class="eyebrow">Acceso restringido</p>
+      <h1>Iniciar sesión</h1>
+      <p class="muted">Ingresá con tu cuenta de administrador o de cliente para consultar vehículos.</p>
+
+      <form action="/login" method="POST" class="form-stack">
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" required autocomplete="username" placeholder="admin@concesionaria.com">
+        </label>
+        <label>
+          <span>Contraseña</span>
+          <input type="password" name="password" required autocomplete="current-password" placeholder="••••••••">
+        </label>
+        <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+      </form>
+
+      <div class="auth-hint">
+        <strong>Datos de prueba:</strong>
+        <span>admin@concesionaria.com / admin123</span>
+        <span>vendedor@concesionaria.com / admin123 (cliente)</span>
+      </div>
+      <p class="muted">¿No tenés cuenta? <a href="/registro">Registrate</a></p>
+      <a class="back-link" href="/">&larr; Volver al catálogo</a>
+    </section>
+  </main>

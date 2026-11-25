@@ -1,0 +1,95 @@
+<main class="container admin-page">
+    <div class="page-heading">
+      <div>
+        <p class="eyebrow">Administración</p>
+        <h1>Ventas</h1>
+        <p class="muted">Registrá nuevas ventas y consultá el historial.</p>
+      </div>
+    </div>
+
+    <section class="panel">
+      <h2>Registrar venta</h2>
+      <% if (vehiculos.length) { %>
+        <form action="/admin/ventas" method="POST" class="form-grid">
+          <label>
+            <span>Vehículo *</span>
+            <select name="vehiculo_id" id="vehiculo-venta" required>
+              <option value="">Seleccionar</option>
+              <% vehiculos.forEach(function (vehiculo) { %>
+                <option value="<%= vehiculo.id %>" data-precio="<%= vehiculo.precio %>"><%= vehiculo.marca %> <%= vehiculo.modelo %> (<%= vehiculo.anio %>) · <%= formatearMoneda(vehiculo.precio) %></option>
+              <% }); %>
+            </select>
+          </label>
+          <label>
+            <span>Comprador *</span>
+            <input type="text" name="comprador_nombre" required placeholder="Nombre y apellido">
+          </label>
+          <label>
+            <span>Email del comprador</span>
+            <input type="email" name="comprador_email" placeholder="correo@ejemplo.com">
+          </label>
+          <label>
+            <span>Teléfono</span>
+            <input type="tel" name="comprador_telefono" placeholder="261 555 5555">
+          </label>
+          <label>
+            <span>Método de pago *</span>
+            <select name="metodo_pago" required>
+              <option value="">Seleccionar</option>
+              <% metodosPago.forEach(function (metodo) { %>
+                <option value="<%= metodo %>"><%= metodo %></option>
+              <% }); %>
+            </select>
+          </label>
+          <label>
+            <span>Monto *</span>
+            <input type="number" name="monto" id="monto-venta" min="1" step="1000" required>
+          </label>
+          <label class="full-width">
+            <span>Observaciones</span>
+            <textarea name="observaciones" rows="2" placeholder="Detalles adicionales..."></textarea>
+          </label>
+          <div class="full-width">
+            <button type="submit" class="btn btn-primary">Registrar venta</button>
+          </div>
+        </form>
+      <% } else { %>
+        <p class="muted">No hay vehículos disponibles o reservados para vender.</p>
+      <% } %>
+    </section>
+
+    <section class="panel">
+      <h2>Historial de ventas</h2>
+      <% if (ventas.length) { %>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Vehículo</th>
+                <th>Comprador</th>
+                <th>Método de pago</th>
+                <th>Monto</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% ventas.forEach(function (venta) { %>
+                <tr>
+                  <td><%= formatearFecha(venta.fecha_venta) %></td>
+                  <td><strong><%= venta.marca %> <%= venta.modelo %></strong><br><small><%= venta.anio %></small></td>
+                  <td>
+                    <strong><%= venta.comprador_nombre %></strong>
+                    <% if (venta.comprador_email) { %><br><small><%= venta.comprador_email %></small><% } %>
+                  </td>
+                  <td><%= venta.metodo_pago %></td>
+                  <td><strong><%= formatearMoneda(venta.monto) %></strong></td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      <% } else { %>
+        <p class="muted">Todavía no se registraron ventas.</p>
+      <% } %>
+    </section>
+  </main>

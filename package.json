@@ -2,11 +2,11 @@
   "name": "concesionaria-ejs",
   "version": "1.0.0",
   "description": "Beckars Concecionaria con catálogo público y panel administrativo usando Express, EJS y SQLite",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "node --watch app.js",
-    "seed": "node -e \"const fs=require('fs'); const db=require('./db/database'); db.exec(fs.readFileSync('./db/seed.sql','utf8')); console.log('Seed aplicado correctamente.');\""
+    "start": "node src/app.js",
+    "dev": "node --watch src/app.js",
+    "seed": "node -e \"const fs=require('fs'); const db=require('./src/db/database'); db.exec(fs.readFileSync('./src/db/seed.sql','utf8')); console.log('Seed aplicado correctamente.');\""
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

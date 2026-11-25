@@ -1,0 +1,30 @@
+<main class="container auth-page">
+  <section class="auth-card">
+    <p class="eyebrow">Cuenta de cliente</p>
+    <h1>Crear cuenta</h1>
+    <p class="muted">Registrate para consultar vehículos con tu cuenta de cliente.</p>
+
+    <form action="/registro" method="POST" class="form-stack">
+      <label>
+        <span>Nombre *</span>
+        <input type="text" name="nombre" required autocomplete="name" placeholder="Tu nombre">
+      </label>
+      <label>
+        <span>Email *</span>
+        <input type="email" name="email" required autocomplete="username" placeholder="tu@email.com">
+      </label>
+      <label>
+        <span>Contraseña *</span>
+        <input type="password" name="password" required minlength="8" autocomplete="new-password" placeholder="Mínimo 8 caracteres">
+      </label>
+      <label>
+        <span>Confirmar contraseña *</span>
+        <input type="password" name="confirmar_password" required minlength="8" autocomplete="new-password" placeholder="Repetí la contraseña">
+      </label>
+      <button type="submit" class="btn btn-primary btn-block">Crear cuenta</button>
+    </form>
+
+    <p class="muted">¿Ya tenés cuenta? <a href="/login">Ingresá</a></p>
+    <a class="back-link" href="/">&larr; Volver al catálogo</a>
+  </section>
+</main>

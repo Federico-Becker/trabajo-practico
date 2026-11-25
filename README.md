@@ -11,6 +11,10 @@ Aplicación web de concesionaria con catálogo público, consultas de clientes y
 - `multer` para subida de imágenes
 - `bcryptjs` para contraseñas
 
+## Estructura
+
+El código de la app vive en `src/`: `app.js`, `db/`, `models/` (SQL), `controllers/`, `routes/`, `middlewares/`, `helpers/`, `views/` y `public/`.
+
 ## Instalación
 
 ```bash
@@ -29,16 +33,19 @@ npm start
 
 - Catálogo público: http://localhost:3000
 - Login: http://localhost:3000/login
+- Registro de clientes: http://localhost:3000/registro
 - Panel admin: http://localhost:3000/admin
 
-## Usuario administrador por defecto
+## Usuarios por defecto
 
-- Email: `admin@concesionaria.com`
-- Contraseña: `admin123`
+- Administrador: `admin@concesionaria.com` / `admin123`.
+- Cliente de prueba: `vendedor@concesionaria.com` / `admin123`.
+
+Las consultas requieren sesión iniciada; si no tenés cuenta, registrate en `/registro`. El panel admin requiere rol `admin`.
 
 ## Base de datos
 
-La base se crea automáticamente en `db/concesionaria.sqlite`.
+La base se crea automáticamente en `src/db/concesionaria.sqlite`.
 
 Tablas: `usuarios`, `marcas`, `categorias`, `vehiculos`, `vehiculo_imagenes`, `consultas`, `ventas`.
 
@@ -46,7 +53,7 @@ El seed carga datos de prueba y usa `INSERT OR IGNORE`, por lo que no sobrescrib
 
 ## Imágenes
 
-Las imágenes de vehículos se guardan en `public/uploads/vehiculos/` y se sirven desde `/uploads/vehiculos/`.
+Las imágenes de vehículos se guardan en `src/public/uploads/vehiculos/` y se sirven desde `/uploads/vehiculos/`.
 
 Formatos permitidos: JPG, JPEG, PNG y WEBP. Máximo 5 MB por imagen y hasta 8 imágenes por vehículo.
 
@@ -55,14 +62,3 @@ Formatos permitidos: JPG, JPEG, PNG y WEBP. Máximo 5 MB por imagen y hasta 8 im
 - `PORT`: puerto del servidor, por defecto `3000`.
 - `HOST` o `IP`: interfaz de escucha, por defecto `0.0.0.0`.
 - `SESSION_SECRET`: secreto de sesión, por defecto `'secreto-desarrollo-cambiar'`.
-- `NODEJS_VERSION`: versión de Node en AlwaysData, usar `22`.
-
-## Deploy en AlwaysData
-
-1. Subí el código a GitHub y clonalo en `~/www/concesionaria` por SSH.
-2. Dentro del proyecto: `npm install` y `npm run seed`.
-3. En Web > Sites creá un sitio de tipo Node.js con comando `node /home/<cuenta>/www/concesionaria/app.js` y directorio de trabajo `www/concesionaria`.
-4. Elegí Node.js 22 y configurá `SESSION_SECRET` (y opcionalmente `NODEJS_VERSION=22`). `HOST` y `PORT` los inyecta AlwaysData.
-5. Verificá que `db/` y `public/uploads/vehiculos/` sean escribibles.
-
-El plan Free incluye 1 GB SSD, 256 MB RAM y 1/4 CPU. Para producción conviene Plus por la memoria y los backups.

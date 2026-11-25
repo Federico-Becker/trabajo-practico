@@ -1,8 +1,8 @@
 node_modules/
 npm-debug.log*
-db/*.sqlite
-db/*.sqlite-*
-public/uploads/vehiculos/*
+src/db/*.sqlite
+src/db/*.sqlite-*
+src/public/uploads/vehiculos/*
 .env
 .env.*
 !.env.example

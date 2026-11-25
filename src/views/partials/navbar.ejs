@@ -1,0 +1,53 @@
+<%
+  const q = typeof query !== 'undefined' && query ? query : {};
+  const usuario = typeof usuarioActual !== 'undefined' ? usuarioActual : null;
+  const aviso = q.msg || (q.enviado ? 'Operación realizada correctamente.' : '') || (q.consulta_enviada ? 'Consulta enviada correctamente.' : '');
+%>
+<header class="site-header">
+  <nav class="navbar" aria-label="Navegación principal">
+    <a class="brand" href="/">
+      <img class="brand-mark" src="/images/logo.svg" alt="">
+      <span class="brand-text">Beckars <strong>Concecionaria</strong></span>
+    </a>
+    <div class="nav-links">
+      <a href="/">Catálogo</a>
+      <% if (usuario && usuario.rol === 'admin') { %>
+        <a href="/admin">Panel</a>
+        <a href="/admin/vehiculos">Vehículos</a>
+        <a href="/admin/marcas">Marcas</a>
+        <a href="/admin/categorias">Categorías</a>
+        <a href="/admin/consultas">Consultas</a>
+        <a href="/admin/ventas">Ventas</a>
+      <% } else { %>
+        <a href="/registro">Registrate</a>
+      <% } %>
+    </div>
+    <div class="nav-actions">
+      <label class="theme-control">
+        <span>Tema</span>
+        <select data-theme-select aria-label="Tema">
+          <option value="light">Blanco</option>
+          <option value="dark">Negro</option>
+        </select>
+      </label>
+      <% if (usuario) { %>
+        <span class="nav-user"><%= usuario.nombre %></span>
+        <form action="/logout" method="POST" class="inline-form">
+          <button type="submit" class="btn btn-ghost btn-small">Salir</button>
+        </form>
+      <% } else { %>
+        <a class="btn btn-primary btn-small" href="/login">Ingresar</a>
+      <% } %>
+    </div>
+  </nav>
+</header>
+<% if (aviso) { %>
+  <div class="container">
+    <div class="alert alert-success"><%= aviso %></div>
+  </div>
+<% } %>
+<% if (q.error) { %>
+  <div class="container">
+    <div class="alert alert-error"><%= q.error %></div>
+  </div>
+<% } %>
