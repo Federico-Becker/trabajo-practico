@@ -58,6 +58,17 @@ router.get('/', (req, res) => {
     parametros.push(anioMaximo);
   }
 
+  const hayFiltros = Boolean(
+    busqueda ||
+    marcaId !== null ||
+    categoriaId !== null ||
+    precioMinimo !== null ||
+    precioMaximo !== null ||
+    anioMinimo !== null ||
+    anioMaximo !== null ||
+    (orden && String(orden) !== 'mas_recientes')
+  );
+
   const ordenes = {
     precio_asc: 'v.precio ASC',
     precio_desc: 'v.precio DESC',
@@ -90,7 +101,8 @@ router.get('/', (req, res) => {
     vehiculos,
     marcas,
     categorias,
-    filtros: req.query
+    filtros: req.query,
+    hayFiltros
   });
 });
 

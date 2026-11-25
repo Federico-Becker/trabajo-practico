@@ -28,8 +28,14 @@
       </div>
     </section>
 
-    <section class="panel filters">
-      <h2>Filtrar búsqueda</h2>
+    <details class="panel filters"<%= hayFiltros ? ' open' : '' %>>
+      <summary class="filters-summary">
+        <span class="filters-title">Filtrar búsqueda</span>
+        <% if (hayFiltros) { %>
+          <span class="filters-active">Filtros activos</span>
+        <% } %>
+        <span class="filters-chevron" aria-hidden="true">⌄</span>
+      </summary>
       <form action="/" method="GET" class="filter-grid">
         <label>
           <span>Buscar</span>
@@ -84,7 +90,7 @@
           <a class="btn btn-ghost" href="/">Limpiar</a>
         </div>
       </form>
-    </section>
+    </details>
 
     <section class="catalogo" id="catalogo">
       <div class="section-heading">
@@ -126,19 +132,6 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div>
-        <img class="footer-logo" src="/images/logo.svg" alt="">
-        <p>Beckars Concecionaria · Vehículos seleccionados, garantía y financiación a medida.</p>
-      </div>
-      <div class="footer-links">
-        <a href="/">Catálogo</a>
-        <a href="/login">Administración</a>
-        <a href="#catalogo">Stock actual</a>
-      </div>
-      <p class="footer-copy">© 2026 Beckars Concecionaria. Todos los derechos reservados.</p>
-    </div>
-  </footer>
+  <%- include('../partials/footer') -%>
 </body>
 </html>
