@@ -26,11 +26,32 @@ INSERT OR IGNORE INTO vehiculos (id, marca_id, categoria_id, modelo, anio, preci
   (6, 6, 3, '208 Allure', 2022, 22400000, 24000, 'Nafta', 'Automático', 'Azul', 'Hatchback francés con diseño moderno y excelente estado general.', 'vendido', 0),
   (7, 1, 5, '86 GT', 2018, 28900000, 51000, 'Nafta', 'Manual', 'Naranja', 'Coupé deportivo con tracción trasera, escape deportivo y bajo kilometraje.', 'disponible', 0);
 
-INSERT OR IGNORE INTO vehiculo_imagenes (id, vehiculo_id, url, orden) VALUES
-  (1, 1, 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAFAAH/q842iQAAAABJRU5ErkJggg==', 0),
-  (2, 1, 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAFAAH/q842iQAAAABJRU5ErkJggg==', 1),
-  (3, 2, 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAFAAH/q842iQAAAABJRU5ErkJggg==', 0),
-  (4, 5, 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAFAAH/q842iQAAAABJRU5ErkJggg==', 0);
+DELETE FROM vehiculo_imagenes WHERE url LIKE 'data:image/%';
+
+INSERT OR REPLACE INTO vehiculo_imagenes (id, vehiculo_id, url, orden, tipo) VALUES
+  (1, 1, '/images/vehiculos/corolla-exterior.svg', 0, 'exterior'),
+  (2, 1, '/images/vehiculos/corolla-interior.svg', 1, 'interior'),
+  (3, 1, '/images/vehiculos/corolla-detalle.svg', 2, 'detalle'),
+  (4, 2, '/images/vehiculos/tiguan-exterior.svg', 0, 'exterior'),
+  (5, 2, '/images/vehiculos/tiguan-interior.svg', 1, 'interior'),
+  (6, 2, '/images/vehiculos/tiguan-detalle.svg', 2, 'detalle'),
+  (7, 3, '/images/vehiculos/f150-exterior.svg', 0, 'exterior'),
+  (8, 3, '/images/vehiculos/f150-interior.svg', 1, 'interior'),
+  (9, 3, '/images/vehiculos/f150-detalle.svg', 2, 'detalle'),
+  (10, 4, '/images/vehiculos/cruze-exterior.svg', 0, 'exterior'),
+  (11, 4, '/images/vehiculos/cruze-interior.svg', 1, 'interior'),
+  (12, 4, '/images/vehiculos/cruze-detalle.svg', 2, 'detalle'),
+  (13, 5, '/images/vehiculos/clio-exterior.svg', 0, 'exterior'),
+  (14, 5, '/images/vehiculos/clio-interior.svg', 1, 'interior'),
+  (15, 5, '/images/vehiculos/clio-detalle.svg', 2, 'detalle'),
+  (16, 6, '/images/vehiculos/208-exterior.svg', 0, 'exterior'),
+  (17, 6, '/images/vehiculos/208-interior.svg', 1, 'interior'),
+  (18, 6, '/images/vehiculos/208-detalle.svg', 2, 'detalle'),
+  (19, 7, '/images/vehiculos/gt86-exterior.svg', 0, 'exterior'),
+  (20, 7, '/images/vehiculos/gt86-interior.svg', 1, 'interior'),
+  (21, 7, '/images/vehiculos/gt86-detalle.svg', 2, 'detalle');
+
+INSERT OR REPLACE INTO sqlite_sequence (name, seq) VALUES ('vehiculo_imagenes', 21);
 
 INSERT OR IGNORE INTO consultas (id, vehiculo_id, nombre, email, telefono, mensaje, estado) VALUES
   (1, 1, 'Martina López', 'martina@example.com', '2615551101', '¿El precio es negociable?', 'nueva'),

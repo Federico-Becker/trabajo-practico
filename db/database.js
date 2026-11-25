@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs');
 const ESTADOS_VALIDOS = ['disponible', 'reservado', 'vendido'];
 const ESTADOS_CONSULTA = ['nueva', 'en_gestion', 'cerrada'];
 const METODOS_PAGO = ['Efectivo', 'Transferencia', 'Financiación', 'Permuta + Efectivo', 'Crédito prendario'];
+const TIPOS_IMAGEN = ['exterior', 'interior', 'detalle'];
 
 fs.mkdirSync(__dirname, { recursive: true });
 
@@ -99,6 +100,14 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_consultas_estado ON consultas(estado);
 `);
 
+const columnasImagenes = db.prepare('PRAGMA table_info(vehiculo_imagenes)').all();
+
+if (!columnasImagenes.some((columna) => columna.name === 'tipo')) {
+  db.exec("ALTER TABLE vehiculo_imagenes ADD COLUMN tipo TEXT NOT NULL DEFAULT 'exterior'");
+}
+
+db.exec("UPDATE vehiculo_imagenes SET tipo = 'exterior' WHERE tipo IS NULL OR tipo = ''");
+
 const adminExiste = db.prepare('SELECT id FROM usuarios WHERE email = ?').get('admin@concesionaria.com');
 
 if (!adminExiste) {
@@ -114,3 +123,4 @@ module.exports = db;
 module.exports.ESTADOS_VALIDOS = ESTADOS_VALIDOS;
 module.exports.ESTADOS_CONSULTA = ESTADOS_CONSULTA;
 module.exports.METODOS_PAGO = METODOS_PAGO;
+module.exports.TIPOS_IMAGEN = TIPOS_IMAGEN;

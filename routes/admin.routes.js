@@ -4,7 +4,7 @@ const express = require('express');
 const db = require('../db/database');
 const uploadVehiculos = require('../middlewares/upload');
 
-const { ESTADOS_VALIDOS, ESTADOS_CONSULTA, METODOS_PAGO } = db;
+const { ESTADOS_VALIDOS, ESTADOS_CONSULTA, METODOS_PAGO, TIPOS_IMAGEN } = db;
 const COMBUSTIBLES = ['Nafta', 'Diésel', 'Híbrido', 'Eléctrico', 'GNC'];
 const TRANSMISIONES = ['Manual', 'Automático', 'CVT', 'DCT'];
 const DIRECTORIO_IMAGENES = path.join(__dirname, '..', 'public', 'uploads', 'vehiculos');
@@ -13,6 +13,11 @@ const router = express.Router();
 
 function texto(valor) {
   return String(valor ?? '').trim();
+}
+
+function tipoImagen(valor) {
+  const tipo = texto(valor);
+  return TIPOS_IMAGEN.includes(tipo) ? tipo : 'exterior';
 }
 
 function entero(valor) {
@@ -178,7 +183,11 @@ router.get('/vehiculos', (req, res) => {
 
   const vehiculos = db.prepare(`
     SELECT v.*, m.nombre AS marca, c.nombre AS categoria,
-           (SELECT COUNT(*) FROM vehiculo_imagenes vi WHERE vi.vehiculo_id = v.id) AS imagenes
+           (SELECT COUNT(*) FROM vehiculo_imagenes vi WHERE vi.vehiculo_id = v.id) AS imagenes,
+           (SELECT vi.url FROM vehiculo_imagenes vi
+            WHERE vi.vehiculo_id = v.id
+            ORDER BY CASE WHEN vi.tipo = 'exterior' THEN 0 ELSE 1 END, vi.orden ASC, vi.id ASC
+            LIMIT 1) AS imagen_principal
     FROM vehiculos v
     JOIN marcas m ON m.id = v.marca_id
     JOIN categorias c ON c.id = v.categoria_id
@@ -190,7 +199,8 @@ router.get('/vehiculos', (req, res) => {
     titulo: 'Administrar vehículos',
     vehiculos,
     estados: ESTADOS_VALIDOS,
-    estadoFiltro
+    estadoFiltro,
+    tiposImagen: TIPOS_IMAGEN
   });
 });
 
@@ -204,6 +214,7 @@ router.get('/vehiculos/nuevo', (req, res) => {
     estados: ESTADOS_VALIDOS,
     combustibles: COMBUSTIBLES,
     transmisiones: TRANSMISIONES,
+    tiposImagen: TIPOS_IMAGEN,
     editando: false,
     action: '/admin/vehiculos'
   });
@@ -220,7 +231,7 @@ router.get('/vehiculos/:id/editar', (req, res) => {
   }
 
   const imagenes = db.prepare(`
-    SELECT id, url, orden FROM vehiculo_imagenes
+    SELECT id, url, orden, tipo FROM vehiculo_imagenes
     WHERE vehiculo_id = ? ORDER BY orden ASC, id ASC
   `).all(id);
 
@@ -233,6 +244,7 @@ router.get('/vehiculos/:id/editar', (req, res) => {
     estados: ESTADOS_VALIDOS,
     combustibles: COMBUSTIBLES,
     transmisiones: TRANSMISIONES,
+    tiposImagen: TIPOS_IMAGEN,
     editando: true,
     action: `/admin/vehiculos/${id}/editar`
   });
@@ -268,12 +280,13 @@ router.post('/vehiculos', uploadVehiculos, (req, res) => {
       );
 
       const vehiculoId = Number(resultado.lastInsertRowid);
+      const tipo = tipoImagen(req.body.tipo_imagen);
       const insertarImagen = db.prepare(`
-        INSERT INTO vehiculo_imagenes (vehiculo_id, url, orden) VALUES (?, ?, ?)
+        INSERT INTO vehiculo_imagenes (vehiculo_id, url, orden, tipo) VALUES (?, ?, ?, ?)
       `);
 
       (req.files || []).forEach((file, indice) => {
-        insertarImagen.run(vehiculoId, urlDeArchivo(file), indice);
+        insertarImagen.run(vehiculoId, urlDeArchivo(file), indice, tipo);
       });
     })();
 
@@ -345,12 +358,13 @@ router.post('/vehiculos/:id/editar', uploadVehiculos, (req, res) => {
         SELECT COALESCE(MAX(orden), -1) AS maximo FROM vehiculo_imagenes WHERE vehiculo_id = ?
       `).get(id).maximo;
 
+      const tipo = tipoImagen(req.body.tipo_imagen);
       const insertarImagen = db.prepare(`
-        INSERT INTO vehiculo_imagenes (vehiculo_id, url, orden) VALUES (?, ?, ?)
+        INSERT INTO vehiculo_imagenes (vehiculo_id, url, orden, tipo) VALUES (?, ?, ?, ?)
       `);
 
       (req.files || []).forEach((file, indice) => {
-        insertarImagen.run(id, urlDeArchivo(file), maxOrden + 1 + indice);
+        insertarImagen.run(id, urlDeArchivo(file), maxOrden + 1 + indice, tipo);
       });
     })();
 

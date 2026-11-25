@@ -5,10 +5,13 @@
 %>
 <header class="site-header">
   <nav class="navbar">
-    <a class="brand" href="/">Concesionaria<span>Auto</span></a>
+    <a class="brand" href="/">
+      <img class="brand-mark" src="/images/logo.svg" alt="">
+      <span class="brand-text">Concesionaria<strong>Auto</strong></span>
+    </a>
     <div class="nav-links">
       <a href="/">Catálogo</a>
-      <% if (usuario) { %>
+      <% if (usuario && usuario.rol === 'admin') { %>
         <a href="/admin">Panel</a>
         <a href="/admin/vehiculos">Vehículos</a>
         <a href="/admin/marcas">Marcas</a>

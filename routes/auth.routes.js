@@ -5,7 +5,7 @@ const db = require('../db/database');
 const router = express.Router();
 
 router.get('/login', (req, res) => {
-  if (req.session.usuario) {
+  if (req.session.usuario && req.session.usuario.rol === 'admin') {
     return res.redirect('/admin');
   }
 

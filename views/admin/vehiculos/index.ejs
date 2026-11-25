@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= titulo %></title>
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
@@ -56,7 +57,16 @@
                     <br><small><%= vehiculo.anio %> · <%= vehiculo.kilometraje.toLocaleString('es-AR') %> km</small>
                   </td>
                   <td><%= formatearMoneda(vehiculo.precio) %></td>
-                  <td><%= vehiculo.imagenes %></td>
+                  <td>
+                    <div class="admin-thumb-cell">
+                      <% if (vehiculo.imagen_principal) { %>
+                        <img src="<%= vehiculo.imagen_principal %>" alt="">
+                      <% } else { %>
+                        <span class="admin-thumb-vacio">—</span>
+                      <% } %>
+                      <span><%= vehiculo.imagenes %></span>
+                    </div>
+                  </td>
                   <td>
                     <form action="/admin/vehiculos/<%= vehiculo.id %>/estado" method="POST" class="inline-form">
                       <select name="estado" class="select-small" onchange="this.form.submit()">

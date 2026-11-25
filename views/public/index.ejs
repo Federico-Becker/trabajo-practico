@@ -4,17 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= titulo %></title>
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
   <%- include('../partials/navbar') -%>
 
   <main class="container">
-    <section class="hero">
-      <div>
+    <section class="hero hero-preview">
+      <div class="hero-copy">
         <p class="eyebrow">Vehículos seleccionados</p>
         <h1>Encontrá tu próximo auto</h1>
         <p class="hero-text">Explora nuestro catálogo, filtrá por marca, categoría, precio o año y consultanos sin compromiso.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#catalogo">Explorar catálogo</a>
+          <a class="btn btn-ghost" href="/login">Acceso administrador</a>
+        </div>
       </div>
       <div class="hero-badge">
         <strong><%= vehiculos.length %></strong>
@@ -80,7 +85,14 @@
       </form>
     </section>
 
-    <section class="catalogo">
+    <section class="catalogo" id="catalogo">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Stock actual</p>
+          <h2>Vehículos disponibles</h2>
+        </div>
+        <span class="result-count"><%= vehiculos.length %> resultados</span>
+      </div>
       <% if (vehiculos.length) { %>
         <div class="card-grid">
           <% vehiculos.forEach(function (vehiculo) { %>
@@ -114,8 +126,17 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container">
-      <p>ConcesionariaAuto · Ventas de vehículos nuevos y usados</p>
+    <div class="container footer-inner">
+      <div>
+        <img class="footer-logo" src="/images/logo.svg" alt="">
+        <p>ConcesionariaAuto · Vehículos seleccionados, garantía y financiación a medida.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/">Catálogo</a>
+        <a href="/login">Administración</a>
+        <a href="#catalogo">Stock actual</a>
+      </div>
+      <p class="footer-copy">© 2026 ConcesionariaAuto. Todos los derechos reservados.</p>
     </div>
   </footer>
 </body>

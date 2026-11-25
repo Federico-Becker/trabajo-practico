@@ -71,10 +71,10 @@ router.get('/', (req, res) => {
     SELECT v.*,
            m.nombre AS marca,
            c.nombre AS categoria,
-           (SELECT vi.url FROM vehiculo_imagenes vi
-            WHERE vi.vehiculo_id = v.id
-            ORDER BY vi.orden ASC, vi.id ASC
-            LIMIT 1) AS imagen_principal
+            (SELECT vi.url FROM vehiculo_imagenes vi
+             WHERE vi.vehiculo_id = v.id
+             ORDER BY CASE WHEN vi.tipo = 'exterior' THEN 0 ELSE 1 END, vi.orden ASC, vi.id ASC
+             LIMIT 1) AS imagen_principal
     FROM vehiculos v
     JOIN marcas m ON m.id = v.marca_id
     JOIN categorias c ON c.id = v.categoria_id
@@ -110,7 +110,7 @@ router.get('/vehiculos/:id', (req, res) => {
   }
 
   const imagenes = db.prepare(`
-    SELECT id, url, orden FROM vehiculo_imagenes
+    SELECT id, url, orden, tipo FROM vehiculo_imagenes
     WHERE vehiculo_id = ?
     ORDER BY orden ASC, id ASC
   `).all(id);

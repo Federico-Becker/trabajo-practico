@@ -9,6 +9,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= titulo %></title>
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
@@ -105,12 +106,16 @@
       </section>
 
       <section class="panel">
-        <h2>Imágenes</h2>
+        <div class="panel-heading">
+          <h2>Imágenes</h2>
+          <span class="muted">Exterior, interior y detalles</span>
+        </div>
         <% if (editando && imagenes.length) { %>
           <div class="image-preview-grid">
             <% imagenes.forEach(function (imagen) { %>
               <div class="image-preview">
                 <img src="<%= imagen.url %>" alt="Imagen del vehículo">
+                <span class="image-tipo"><%= imagen.tipo === 'interior' ? 'Interior' : imagen.tipo === 'detalle' ? 'Detalle' : 'Exterior' %></span>
                 <label class="checkbox-label">
                   <input type="checkbox" name="imagenes_eliminar" value="<%= imagen.id %>">
                   <span>Eliminar</span>
@@ -122,6 +127,14 @@
         <label class="upload-zone">
           <span>Agregar imágenes</span>
           <input type="file" name="imagenes" accept="image/jpeg,image/png,image/webp" multiple>
+        </label>
+        <label class="upload-tipo">
+          <span>Tipo de las imágenes nuevas</span>
+          <select name="tipo_imagen">
+            <% tiposImagen.forEach(function (tipo) { %>
+              <option value="<%= tipo %>"><%= tipo === 'interior' ? 'Interior' : tipo === 'detalle' ? 'Detalle' : 'Exterior' %></option>
+            <% }); %>
+          </select>
         </label>
         <p class="upload-note">Formatos: JPG, JPEG, PNG o WEBP. Máximo 5 MB por imagen y hasta 8 imágenes.</p>
       </section>

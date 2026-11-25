@@ -4,27 +4,51 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= titulo %></title>
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
   <%- include('../partials/navbar') -%>
 
+  <%
+    const grupos = [
+      { clave: 'exterior', etiqueta: 'Exterior', imagenes: imagenes.filter((imagen) => imagen.tipo === 'exterior') },
+      { clave: 'interior', etiqueta: 'Interior', imagenes: imagenes.filter((imagen) => imagen.tipo === 'interior') },
+      { clave: 'detalle', etiqueta: 'Detalles', imagenes: imagenes.filter((imagen) => imagen.tipo === 'detalle') }
+    ].filter((grupo) => grupo.imagenes.length);
+    const imagenPrincipal = grupos.length ? grupos[0].imagenes[0] : imagenes[0];
+  %>
+
   <main class="container detail-page">
     <a class="back-link" href="/">&larr; Volver al catálogo</a>
 
     <div class="detail-layout">
-      <section class="detail-gallery">
-        <% if (imagenes.length) { %>
-          <div class="detail-main-image">
-            <img src="<%= imagenes[0].url %>" alt="<%= vehiculo.marca %> <%= vehiculo.modelo %>">
+      <section class="detail-gallery" data-gallery>
+        <% if (imagenPrincipal) { %>
+          <div class="gallery-stage" data-gallery-stage>
+            <img id="imagenPrincipal" src="<%= imagenPrincipal.url %>" alt="<%= vehiculo.marca %> <%= vehiculo.modelo %>">
+            <span class="gallery-count" data-gallery-count>1 / <%= grupos.length ? grupos[0].imagenes.length : 1 %></span>
+            <button type="button" class="gallery-zoom" data-gallery-zoom> Ampliar imagen </button>
           </div>
-          <% if (imagenes.length > 1) { %>
-            <div class="detail-thumbs">
-              <% imagenes.forEach(function (imagen) { %>
-                <img src="<%= imagen.url %>" alt="Vista del vehículo">
+          <p class="gallery-caption" data-gallery-caption><%= grupos.length ? grupos[0].etiqueta : 'Vehículo' %></p>
+          <% if (grupos.length > 1) { %>
+            <div class="gallery-tabs" role="tablist" aria-label="Galería del vehículo">
+              <% grupos.forEach(function (grupo, indice) { %>
+                <button type="button" role="tab" aria-selected="<%= indice === 0 %>" class="gallery-tab <%= indice === 0 ? 'activo' : '' %>" data-gallery-tab="<%= grupo.clave %>">
+                  <%= grupo.etiqueta %> <span><%= grupo.imagenes.length %></span>
+                </button>
               <% }); %>
             </div>
           <% } %>
+          <% grupos.forEach(function (grupo, indice) { %>
+            <div class="gallery-thumbs <%= indice === 0 ? 'activo' : '' %>" data-gallery-panel="<%= grupo.clave %>">
+              <% grupo.imagenes.forEach(function (imagen, posicion) { %>
+                <button type="button" class="gallery-thumb <%= posicion === 0 ? 'activo' : '' %>" data-gallery-image="<%= imagen.url %>" data-gallery-label="<%= grupo.etiqueta %> <%= posicion + 1 %>">
+                  <img src="<%= imagen.url %>" alt="<%= grupo.etiqueta %> <%= vehiculo.modelo %>">
+                </button>
+              <% }); %>
+            </div>
+          <% }); %>
         <% } else { %>
           <div class="detail-main-image detail-placeholder"><span>Sin imágenes cargadas</span></div>
         <% } %>
@@ -35,6 +59,11 @@
         <h1><%= vehiculo.modelo %></h1>
         <p class="detail-price"><%= formatearMoneda(vehiculo.precio) %></p>
         <p class="detail-description"><%= vehiculo.descripcion || 'Vehículo en excelente estado. Consultanos por más detalles.' %></p>
+        <div class="detail-highlights">
+          <span>Interior revisado</span>
+          <span>Garantía 12 meses</span>
+          <span>Transferencia incluida</span>
+        </div>
 
         <div class="spec-grid">
           <div><span>Año</span><strong><%= vehiculo.anio %></strong></div>
@@ -74,5 +103,12 @@
       </form>
     </section>
   </main>
+
+  <div class="lightbox" data-lightbox hidden>
+    <button type="button" class="lightbox-close" data-lightbox-close aria-label="Cerrar">×</button>
+    <img data-lightbox-image src="" alt="Vista ampliada">
+    <p data-lightbox-caption></p>
+  </div>
+  <script src="/js/gallery.js" defer></script>
 </body>
 </html>
