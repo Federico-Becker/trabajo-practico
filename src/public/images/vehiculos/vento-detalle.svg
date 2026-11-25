@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800"><defs>
+    <linearGradient id="fondo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d9dee5"/><stop offset="1" stop-color="#1b2836"/></linearGradient>
+    <radialGradient id="disco"><stop offset="0" stop-color="#dbe3ea"/><stop offset=".7" stop-color="#7a8794"/><stop offset="1" stop-color="#3d4854"/></radialGradient>
+    <radialGradient id="brillo"><stop offset="0" stop-color="#ffffff" stop-opacity=".65"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#fondo)"/>
+  <circle cx="920" cy="180" r="290" fill="url(#brillo)"/>
+  <path d="M0 650 H1200" stroke="#ffffff" stroke-opacity=".2" stroke-width="4"/>
+  <circle cx="585" cy="420" r="315" fill="#0d141b"/>
+  <circle cx="585" cy="420" r="265" fill="#1a232d" stroke="#2d3a48" stroke-width="22"/>
+  <circle cx="585" cy="420" r="215" fill="url(#disco)"/>
+  <circle cx="585" cy="420" r="90" fill="#5a6673" stroke="#e9eff4" stroke-width="10"/>
+  <path d="M585 330 L585 205" stroke="#e9eff4" stroke-width="24" stroke-linecap="round" transform="rotate(0 585 420)"/><path d="M585 330 L585 205" stroke="#e9eff4" stroke-width="24" stroke-linecap="round" transform="rotate(45 585 420)"/><path d="M585 330 L585 205" stroke="#e9eff4" stroke-width="24" stroke-linecap="round" transform="rotate(90 585 420)"/><path d="M585 330 L585 205" stroke="#e9eff4" stroke-width="24" stroke-linecap="round" transform="rotate(135 585 420)"/><path d="M585 330 L585 205" stroke="#e9eff4" stroke-width="24" stroke-linecap="round" transform="rotate(180 585 420)"/><path d="M585 330 L585 205" stroke="#e9eff4" stroke-width="24" stroke-linecap="round" transform="rotate(225 585 420)"/><path d="M585 330 L585 205" stroke="#e9eff4" stroke-width="24" stroke-linecap="round" transform="rotate(270 585 420)"/><path d="M585 330 L585 205" stroke="#e9eff4" stroke-width="24" stroke-linecap="round" transform="rotate(315 585 420)"/>
+  <circle cx="585" cy="420" r="54" fill="#263240"/>
+  <circle cx="585" cy="420" r="20" fill="#e7edf3"/>
+  <circle cx="585" cy="420" r="230" fill="none" stroke="#ffffff" stroke-opacity=".16" stroke-width="6"/>
+  <rect x="900" y="520" width="230" height="100" rx="30" fill="#5a6673" stroke="#ffffff" stroke-opacity=".5" stroke-width="6"/>
+  <path d="M930 545 Q1010 505 1100 545 L1085 590 H945 Z" fill="#f6fbff" opacity=".8"/>
+  <text x="60" y="110" fill="#ffffff" fill-opacity=".9" font-family="Arial, sans-serif" font-size="38" font-weight="700" letter-spacing="4">DETALLES</text>
+  <text x="60" y="155" fill="#ffffff" fill-opacity=".5" font-family="Arial, sans-serif" font-size="21">VENTO COMFORTLINE</text></svg>

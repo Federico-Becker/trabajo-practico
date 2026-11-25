@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800"><defs>
+    <linearGradient id="cab" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b3440"/><stop offset="1" stop-color="#0d141c"/></linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7fe3ff"/><stop offset="1" stop-color="#1b5f80"/></linearGradient>
+    <radialGradient id="glow"><stop offset="0" stop-color="#9fd8ef" stop-opacity=".8"/><stop offset="1" stop-color="#9fd8ef" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#cab)"/>
+  <path d="M0 0 H1200 V330 Q900 250 600 300 Q300 250 0 330 Z" fill="#16212c"/>
+  <path d="M0 330 Q300 250 600 300 Q900 250 1200 330 L1200 470 Q900 390 600 440 Q300 390 0 470 Z" fill="#2b3440"/>
+  <ellipse cx="600" cy="390" rx="430" ry="230" fill="url(#glow)" opacity=".32"/>
+  <path d="M120 430 Q310 360 475 420 L455 560 Q280 530 120 590 Z" fill="#111a23" stroke="#3b4a59" stroke-width="4"/>
+  <path d="M1080 430 Q890 360 725 420 L745 560 Q920 530 1080 590 Z" fill="#111a23" stroke="#3b4a59" stroke-width="4"/>
+  <circle cx="315" cy="510" r="118" fill="#0c1219" stroke="#5b6b7b" stroke-width="18"/>
+  <circle cx="315" cy="510" r="72" fill="none" stroke="#8ea0b1" stroke-width="10"/>
+  <path d="M315 510 L315 420 M315 510 L390 550 M315 510 L245 548" stroke="#dce6ef" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="315" cy="510" r="24" fill="#e7edf3"/>
+  <rect x="500" y="325" width="230" height="145" rx="16" fill="url(#screen)" stroke="#d9eaf6" stroke-width="6"/>
+  <path d="M525 365 H705 M525 400 H660 M525 435 H690" stroke="#ffffff" stroke-opacity=".65" stroke-width="9" stroke-linecap="round"/>
+  <rect x="500" y="490" width="230" height="190" rx="22" fill="#141e28" stroke="#435463" stroke-width="5"/>
+  <rect x="535" y="525" width="160" height="52" rx="10" fill="#243341"/>
+  <circle cx="570" cy="620" r="22" fill="#314252"/><circle cx="660" cy="620" r="22" fill="#314252"/>
+  <rect x="760" y="340" width="180" height="110" rx="14" fill="#0a1118" stroke="#4c5d6c" stroke-width="5"/>
+  <circle cx="800" cy="395" r="26" fill="none" stroke="#7fe3ff" stroke-width="6"/><circle cx="900" cy="395" r="26" fill="none" stroke="#9fd8ef" stroke-width="6"/>
+  <path d="M0 760 Q300 660 600 720 Q900 660 1200 760 V800 H0 Z" fill="#080d13"/>
+  <path d="M120 800 Q240 650 420 690 L470 800 Z" fill="#1a2632" stroke="#465766" stroke-width="5"/>
+  <path d="M1080 800 Q960 650 780 690 L730 800 Z" fill="#1a2632" stroke="#465766" stroke-width="5"/>
+  <path d="M60 470 H1140" stroke="#e7edf3" stroke-opacity=".6" stroke-width="5"/>
+  <text x="60" y="110" fill="#ffffff" fill-opacity=".9" font-family="Arial, sans-serif" font-size="38" font-weight="700" letter-spacing="4">INTERIOR</text>
+  <text x="60" y="155" fill="#ffffff" fill-opacity=".5" font-family="Arial, sans-serif" font-size="21">TRACKER LT</text></svg>
